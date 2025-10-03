@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML-Only Pixel Painter (Big Grid)</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+    td {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #ddd;
+      background-color: white;
+      cursor: pointer;
+    }
+    input[type="radio"] {
+      display: none;
+    }
+    label {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      margin: 5px;
+      border: 2px solid #444;
+      cursor: pointer;
+    }
+    .color-red { background-color: red; }
+    .color-blue { background-color: blue; }
+    .color-green { background-color: green; }
+    .color-yellow { background-color: yellow; }
+    .color-black { background-color: black; }
+    .color-white { background-color: white; border: 2px dashed #aaa; }
+  </style>
+</head>
+<body>
+
+  <h2>🎨 HTML-Only Pixel Painter - 16x16 Grid</h2>
+
+  <!-- Color Selector -->
+  <div>
+    <input type="radio" name="color" id="red" checked>
+    <label class="color-red" for="red"></label>
+
+    <input type="radio" name="color" id="blue">
+    <label class="color-blue" for="blue"></label>
+
+    <input type="radio" name="color" id="green">
+    <label class="color-green" for="green"></label>
+
+    <input type="radio" name="color" id="yellow">
+    <label class="color-yellow" for="yellow"></label>
+
+    <input type="radio" name="color" id="black">
+    <label class="color-black" for="black"></label>
+
+    <input type="radio" name="color" id="white">
+    <label class="color-white" for="white"></label>
+  </div>
+
+  <!-- Pixel Grid -->
+  <table>
+    <!-- Rows -->
+    <!-- We'll use JS to auto-generate this below -->
+    <tbody id="grid"></tbody>
+  </table>
+
+  <script>
+    // Auto-generate grid
+    const grid = document.getElementById("grid");
+    for (let i = 0; i < 16; i++) {
+      let row = document.createElement("tr");
+      for (let j = 0; j < 16; j++) {
+        let cell = document.createElement("td");
+        cell.onclick = function () {
+          this.style.backgroundColor = getColor();
+        };
+        row.appendChild(cell);
+      }
+      grid.appendChild(row);
+    }
+
+    // Get selected color
+    function getColor() {
+      if (document.getElementById('red').checked) return 'red';
+      if (document.getElementById('blue').checked) return 'blue';
+      if (document.getElementById('green').checked) return 'green';
+      if (document.getElementById('yellow').checked) return 'yellow';
+      if (document.getElementById('black').checked) return 'black';
+      if (document.getElementById('white').checked) return 'white';
+    }
+  </script>
+
+</body>
+</html>

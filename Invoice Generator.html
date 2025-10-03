@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)file:///C:/Users/adity/Documents/errr.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator</title>
+    <link href="./Invoice Generator_files/css2" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .form-section h2 {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-right: 15px;
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #777;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        .form-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23777" d="M2 0L0 2h4z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 8px 10px;
+            padding-right: 25px;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        #invoice-summary {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        #invoice-summary h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        #invoice-summary p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        #invoice-summary strong {
+            color: #222;
+        }
+
+        #preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #preview-modal .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        #preview-modal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        #preview-modal .modal-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        #preview-modal .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #888;
+            border: none;
+            background: none;
+        }
+
+        #preview-modal .close-button:hover {
+            color: #333;
+        }
+
+        #preview-modal .invoice-content {
+            /* Styles for the invoice content will be generated dynamically */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-group {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Invoice Generator</h1>
+
+        <form id="invoice-form">
+            <div class="form-section">
+                <h2>Sender Details</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sender-name">Name</label>
+                        <input type="text" id="sender-name" name="sender-name" value="AdityaX" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="sender-email">E-Mail</label>
+                        <input type="email" id="sender-email" name="sender-email" value="Adityagupta8268@gmail.com" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sender-address">Address</label>
+                        <input type="text" id="sender-address" name="sender-address" value="603290 INDIA, INDIA" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="sender-tel">Tel</label>
+                        <input type="text" id="sender-tel" name="sender-tel" value="+91983789172" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sender-id">ID</label>
+                        <input type="text" id="sender-id" name="sender-id" value="8402" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="sender-vat-id">VAT ID</label>
+                        <input type="text" id="sender-vat-id" name="sender-vat-id" value="HSD80R3034" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sender-tax-id">Tax ID</label>
+                        <input type="text" id="sender-tax-id" name="sender-tax-id" value="903927093742" required="">
+                    </div>
+                    <div class="form-group">
+                         <label for="sender-trade-name">Trade Name</label>
+                         <input type="text" id="sender-trade-name" name="sender-trade-name" value="Analysing tool" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sender-trade-id">Trade ID</label>
+                        <input type="text" id="sender-trade-id" name="sender-trade-id" value="284239D" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="sender-e-address">E-Address</label>
+                        <input type="text" id="sender-e-address" name="sender-e-address" value="EMAIL" required="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Recipient Details</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipient-name">Name</label>
+                        <input type="text" id="recipient-name" name="recipient-name" value="Kwial" required="">
+                    </div>
+                     <div class="form-group">
+                        <label for="recipient-email">E-Mail</label>
+                        <input type="email" id="recipient-email" name="recipient-email" value="Kwial@gmail.com" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipient-address">Address</label>
+                        <input type="text" id="recipient-address" name="recipient-address" value="4956 878687, INDIA" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-id">ID</label>
+                        <input type="text" id="recipient-id" name="recipient-id" value="3RF034" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                         <label for="recipient-trade-name">Trade Name</label>
+                         <input type="text" id="recipient-trade-name" name="recipient-trade-name" value="Analysing tool" required="">
+                    </div>
+                    <div class="form-group">
+                         <label for="recipient-trade-id">Trade ID</label>
+                         <input type="text" id="recipient-trade-id" name="recipient-trade-id" value="284239D" required="">
+                    </div>
+                </div>
+                 <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipient-vat-id">VAT ID</label>
+                        <input type="text" id="recipient-vat-id" name="recipient-vat-id" value="YG762627856" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-e-address">E-Address</label>
+                        <input type="text" id="recipient-e-address" name="recipient-e-address" value="6797" required="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Invoice Details</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="invoice-no">Invoice No.</label>
+                        <input type="text" id="invoice-no" name="invoice-no" value="88453" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-date">Invoice Date</label>
+                        <input type="date" id="invoice-date" name="invoice-date" value="2025-05-05" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="delivery-date">Delivery Date</label>
+                        <input type="date" id="delivery-date" name="delivery-date" value="2025-05-05" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="billing-period">Billing Period</label>
+                        <input type="text" id="billing-period" name="billing-period" value="05/05/2025-06/05/0225" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="due-date">Due Date</label>
+                        <input type="date" id="due-date" name="due-date" value="2025-05-05" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="buyer-reference">Buyer Reference</label>
+                        <input type="text" id="buyer-reference" name="buyer-reference" value="0" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project-number">Project Number</label>
+                        <input type="text" id="project-number" name="project-number" value="3495D9" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="contract-number">Contract Number</label>
+                        <input type="text" id="contract-number" name="contract-number" value="9984698268" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="purchase-order-number">Purchase Order Number</label>
+                        <input type="text" id="purchase-order-number" name="purchase-order-number" value="9340N5" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="order-number">Order Number</label>
+                        <input type="text" id="order-number" name="order-number" value="239048023" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="payment-reference">Payment Reference</label>
+                        <input type="text" id="payment-reference" name="payment-reference" value="88453KwialAnalysing tool3RF034" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-reference">Invoice Reference</label>
+                        <input type="text" id="invoice-reference" name="invoice-reference" value="2348-FN2 (05/05/2025)" required="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Invoice Items</h2>
+                <div class="table-responsive">
+                    <table id="invoice-items">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Tax (%)</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" name="item-name[]" value="Analysing tool" required="">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Period</label>
+                                            <input type="text" name="item-period[]" value="05/05/2025-05/05/2025">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Article no</label>
+                                            <input type="text" name="item-article-no[]" value="WTAV">
+                                        </div>
+                                         <div class="form-group">
+                                            <label>Order position</label>
+                                            <input type="text" name="item-order-position[]" value="Complete">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><input type="number" name="item-quantity[]" value="1" required=""></td>
+                                <td><input type="text" name="item-price[]" value="38244.83" required=""></td>
+                                <td>
+                                    <select name="item-tax[]">
+                                        <option value="0">0</option>
+                                        <option value="19" selected="">19</option>
+                                    </select>
+                                </td>
+                                <td class="item-total">38244.83 Rs.</td>
+                                <td><button class="btn btn-danger remove-item">Remove</button></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6" style="text-align: right;">
+                                    <button type="button" class="btn btn-primary" id="add-item">Add Item</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Allowance and Charges</h2>
+                 <div class="table-responsive">
+                    <table id="allowance-charges">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Tax (%)</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select name="allowance-charge-type[]">
+                                        <option value="Allowance">Allowance</option>
+                                        <option value="Charge">Charge</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" name="allowance-charge-description[]" value="Maintainance" required=""></td>
+                                 <td>
+                                    <select name="allowance-charge-tax[]">
+                                        <option value="0">0</option>
+                                        <option value="19" selected="">19</option>
+                                    </select>
+                                </td>
+                                <td class="allowance-charge-total">1,529.79 Rs.</td>
+                                <td><button class="btn btn-danger remove-allowance-charge">Remove</button></td>
+                            </tr>
+                             <tr>
+                                <td>
+                                    <select name="allowance-charge-type[]">
+                                        <option value="Allowance">Allowance</option>
+                                        <option value="Charge">Charge</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" name="allowance-charge-description[]" value="Maintainance" required=""></td>
+                                 <td>
+                                    <select name="allowance-charge-tax[]">
+                                        <option value="0">0</option>
+                                        <option value="19" selected="">19</option>
+                                    </select>
+                                </td>
+                                <td class="allowance-charge-total">45.89 Rs.</td>
+                                <td><button class="btn btn-danger remove-allowance-charge">Remove</button></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" style="text-align: right;">
+                                    <button type="button" class="btn btn-primary" id="add-allowance-charge">Add Allowance/Charge</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Delivery Details</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="delivery-name">Name</label>
+                        <input type="text" id="delivery-name" name="delivery-name" value="Kwial" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-location-id">Location ID</label>
+                        <input type="text" id="delivery-location-id" name="delivery-location-id" value="00329" required="">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="delivery-address">Address</label>
+                        <input type="text" id="delivery-address" name="delivery-address" value="3U, RTG, 436T 436, TR, TURKEY" required="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Remarks and Notes</h2>
+                <div class="form-group">
+                    <label for="remarks-notes">Remarks and Notes</label>
+                    <textarea id="remarks-notes" name="remarks-notes">24 hours after receipt of invoice</textarea>
+                </div>
+            </div>
+
+            <div id="invoice-summary">
+                <h3>Invoice Summary</h3>
+                <p>Sum items (net): <span id="sum-items-net">38244.83 Rs.</span></p>
+                <p>Allowance (net): <span id="allowance-net">3059.58 Rs.</span></p>
+                <p>Charge (net): <span id="charge-net">0.00 Rs.</span></p>
+                <p>Total (net): <span id="total-net">41304.41 Rs.</span></p>
+                <p>Tax 19% (S): <span id="tax-19">7847.84 Rs.</span></p>
+                <p>Total (gross): <strong id="total-gross">49152.25 Rs.</strong></p>
+                <p>Amount paid: <span id="amount-paid">49152.25 Rs.</span></p>
+                <p>Amount due: <strong id="amount-due">0.00 Rs.</strong></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="preview-button">Preview Invoice</button>
+        </form>
+    </div>
+
+    <div id="preview-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Invoice Preview</h2>
+                <button class="close-button" id="close-preview-button">×</button>
+            </div>
+            <div class="invoice-content" id="invoice-content-preview">
+                <div style="font-family: &#39;Inter&#39;, sans-serif; width: 100%; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <h1 style="color: #333; text-align: center; margin-bottom: 20px;">Invoice</h1>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <div>
+                            <h2 style="color: #555; margin-bottom: 10px;">Sender Details</h2>
+                            <p><strong>Name:</strong> AdityaX</p>
+                            <p><strong>E-Mail:</strong> Adityagupta8268@gmail.com</p>
+                            <p><strong>Address:</strong> 603290 INDIA, INDIA</p>
+                            <p><strong>Tel:</strong> +91983789172</p>
+                            <p><strong>ID:</strong> 8402</p>
+                            <p><strong>VAT ID:</strong> HSD80R3034</p>
+                            <p><strong>Tax ID:</strong> 903927093742</p>
+                            <p><strong>Trade Name:</strong> Analysing tool</p>
+                            <p><strong>Trade ID:</strong> 284239D</p>
+                            <p><strong>E-Address:</strong> EMAIL</p>
+                        </div>
+                        <div>
+                            <h2 style="color: #555; margin-bottom: 10px;">Recipient Details</h2>
+                            <p><strong>Name:</strong> Kwial</p>
+                            <p><strong>E-Mail:</strong> Kwial@gmail.com</p>
+                             <p><strong>Address:</strong> 4956 878687, INDIA</p>
+                            <p><strong>ID:</strong> 3RF034</p>
+                            <p><strong>Trade Name:</strong> Analysing tool</p>
+                            <p><strong>Trade ID:</strong> 284239D</p>
+                            <p><strong>VAT ID:</strong> YG762627856</p>
+                            <p><strong>E-Address:</strong> 6797</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="color: #555; margin-bottom: 10px;">Invoice Details</h2>
+                        <p><strong>Invoice No.:</strong> 88453</p>
+                        <p><strong>Invoice Date:</strong> 2025-05-05</p>
+                        <p><strong>Delivery Date:</strong> 2025-05-05</p>
+                        <p><strong>Billing Period:</strong> 05/05/2025-06/05/0225</p>
+                        <p><strong>Due Date:</strong> 2025-05-05</p>
+                        <p><strong>Buyer Reference:</strong> 0</p>
+                        <p><strong>Project Number:</strong> 3495D9</p>
+                        <p><strong>Contract Number:</strong> 9984698268</p>
+                        <p><strong>Purchase Order Number:</strong> 9340N5</p>
+                        <p><strong>Order Number:</strong> 239048023</p>
+                        <p><strong>Payment Reference:</strong> 88453KwialAnalysing tool3RF034</p>
+                        <p><strong>Invoice Reference:</strong> 2348-FN2 (05/05/2025)</p>
+                    </div>
+
+                    
+                <h2>Invoice Items</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Tax (%)</th>
+                            <th>Total</th>
+                             <th>Period</th>
+                            <th>Article no</th>
+                            <th>Order position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        <tr>
+                            <td>Analysing tool</td>
+                            <td>1</td>
+                            <td>38244.83</td>
+                            <td>19</td>
+                            <td>38244.83 Rs.</td>
+                            <td>05/05/2025-05/05/2025</td>
+                            <td>WTAV</td>
+                            <td>Complete</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            
+
+                    
+                <h2>Allowance and Charges</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Tax (%)</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        <tr>
+                            <td>Allowance</td>
+                            <td>Maintainance</td>
+                            <td>19</td>
+                            <td>1,529.79 Rs.</td>
+                        </tr>
+                
+                        <tr>
+                            <td>Allowance</td>
+                            <td>Maintainance</td>
+                            <td>19</td>
+                            <td>45.89 Rs.</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            
+
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="color: #555; margin-bottom: 10px;">Delivery Details</h2>
+                        <p><strong>Name:</strong> Kwial</p>
+                         <p><strong>Location ID:</strong> 00329</p>
+                        <p><strong>Address:</strong> 3U, RTG, 436T 436, TR, TURKEY</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="color: #555; margin-bottom: 10px;">Remarks and Notes</h2>
+                        <p>24 hours after receipt of invoice</p>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: right;">
+                       
+                <h3>Invoice Summary</h3>
+                <p>Sum items (net): <span id="sum-items-net">38244.83 Rs.</span></p>
+                <p>Allowance (net): <span id="allowance-net">3059.58 Rs.</span></p>
+                <p>Charge (net): <span id="charge-net">0.00 Rs.</span></p>
+                <p>Total (net): <span id="total-net">41304.41 Rs.</span></p>
+                <p>Tax 19% (S): <span id="tax-19">7847.84 Rs.</span></p>
+                <p>Total (gross): <strong id="total-gross">49152.25 Rs.</strong></p>
+                <p>Amount paid: <span id="amount-paid">49152.25 Rs.</span></p>
+                <p>Amount due: <strong id="amount-due">0.00 Rs.</strong></p>
+            
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="save-invoice-button">Save Invoice</button>
+        </div>
+    </div>
+
+    <script>
+        const invoiceForm = document.getElementById('invoice-form');
+        const invoiceItemsTable = document.getElementById('invoice-items');
+        const addItemButton = document.getElementById('add-item');
+        const invoiceSummary = document.getElementById('invoice-summary');
+        const allowanceChargesTable = document.getElementById('allowance-charges');
+        const addAllowanceChargeButton = document.getElementById('add-allowance-charge');
+        const previewModal = document.getElementById('preview-modal');
+        const closePreviewButton = document.getElementById('close-preview-button');
+        const invoiceContentPreview = document.getElementById('invoice-content-preview');
+        const saveInvoiceButton = document.getElementById('save-invoice-button');
+        const previewButton = document.getElementById('preview-button');
+
+        function calculateItemTotal(quantity, price, taxRate) {
+            const netTotal = quantity * price;
+            const taxAmount = netTotal * (taxRate / 100);
+            return {
+                netTotal: netTotal.toFixed(2),
+                taxAmount: taxAmount.toFixed(2),
+                grossTotal: (netTotal + taxAmount).toFixed(2)
+            };
+        }
+
+        function updateItemTotal(row) {
+            constquantityInput = row.querySelector('input[name="item-quantity[]"]');
+            const priceInput = row.querySelector('input[name="item-price[]"]');
+            const taxSelect = row.querySelector('select[name="item-tax[]"]');
+            const totalCell = row.querySelector('.item-total');
+
+            const quantity = parseFloat(quantityInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 0;
+            const taxRate = parseFloat(taxSelect.value) || 0;
+
+            const { netTotal, taxAmount, grossTotal } = calculateItemTotal(quantity, price, taxRate);
+            totalCell.textContent = `${grossTotal} Rs.`;
+        }
+
+        function calculateAllowanceChargeTotal(row) {
+            const typeSelect = row.querySelector('select[name="allowance-charge-type[]"]');
+            const descriptionInput = row.querySelector('input[name="allowance-charge-description[]"]');
+            const taxSelect = row.querySelector('select[name="allowance-charge-tax[]"]');
+            const totalCell = row.querySelector('.allowance-charge-total');
+
+            const description = descriptionInput.value;
+            const taxRate = parseFloat(taxSelect.value) || 0;
+            let amount = 0;
+
+            if(description === "Maintainance"){
+                if(typeSelect.value === "Allowance"){
+                    amount = 1529.79;
+                }
+                else{
+                    amount = 45.89;
+                }
+            }
+           const taxAmount = amount * (taxRate/100);
+            const total = (amount + taxAmount).toFixed(2);
+            totalCell.textContent = `${total} Rs.`;
+        }
+
+        function updateSummary() {
+            let sumItemsNet = 0;
+            let allowanceNet = 0;
+            let chargeNet = 0;
+            let totalGross = 0;
+            let tax19 = 0;
+
+            const itemRows = invoiceItemsTable.querySelectorAll('tbody tr');
+            itemRows.forEach(row => {
+                const quantityInput = row.querySelector('input[name="item-quantity[]"]');
+                const priceInput = row.querySelector('input[name="item-price[]"]');
+                const taxSelect = row.querySelector('select[name="item-tax[]"]');
+
+                const quantity = parseFloat(quantityInput.value) || 0;
+                const price = parseFloat(priceInput.value) || 0;
+                const taxRate = parseFloat(taxSelect.value) || 0;
+
+                const { netTotal, taxAmount } = calculateItemTotal(quantity, price, taxRate);
+                sumItemsNet += parseFloat(netTotal);
+                tax19 += parseFloat(taxAmount);
+            });
+
+            const allowanceChargeRows = allowanceChargesTable.querySelectorAll('tbody tr');
+             allowanceChargeRows.forEach(row => {
+                const typeSelect = row.querySelector('select[name="allowance-charge-type[]"]');
+                const descriptionInput = row.querySelector('input[name="allowance-charge-description[]"]');
+                const taxSelect = row.querySelector('select[name="allowance-charge-tax[]"]');
+                const totalCell = row.querySelector('.allowance-charge-total');
+
+                const description = descriptionInput.value;
+                const taxRate = parseFloat(taxSelect.value) || 0;
+                let amount = 0;
+
+                if (description === "Maintainance") {
+                    if (typeSelect.value === "Allowance") {
+                        amount = 1529.79;
+                    } else {
+                        amount = 45.89;
+                    }
+                }
+                const taxAmount = amount * (taxRate / 100);
+                const total = (amount + taxAmount).toFixed(2);
+
+                if (typeSelect.value === 'Allowance') {
+                    allowanceNet += amount;
+                } else {
+                    chargeNet += amount;
+                }
+                tax19 += parseFloat(taxAmount);
+            });
+
+            const totalNet = sumItemsNet + allowanceNet + chargeNet;
+            totalGross = totalNet + tax19;
+
+            document.getElementById('sum-items-net').textContent = `${sumItemsNet.toFixed(2)} Rs.`;
+            document.getElementById('allowance-net').textContent = `${allowanceNet.toFixed(2)} Rs.`;
+            document.getElementById('charge-net').textContent = `${chargeNet.toFixed(2)} Rs.`;
+            document.getElementById('total-net').textContent = `${totalNet.toFixed(2)} Rs.`;
+            document.getElementById('tax-19').textContent = `${tax19.toFixed(2)} Rs.`;
+            document.getElementById('total-gross').textContent = `${totalGross.toFixed(2)} Rs.`;
+            document.getElementById('amount-paid').textContent = `${totalGross.toFixed(2)} Rs.`;
+            document.getElementById('amount-due').textContent = '0.00 Rs.';
+        }
+
+        addItemButton.addEventListener('click', () => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>
+                    <input type="text" name="item-name[]" required>
+                     <div class="form-row">
+                        <div class="form-group">
+                            <label>Period</label>
+                            <input type="text" name="item-period[]">
+                        </div>
+                        <div class="form-group">
+                            <label>Article no</label>
+                            <input type="text" name="item-article-no[]">
+                        </div>
+                         <div class="form-group">
+                            <label>Order position</label>
+                            <input type="text" name="item-order-position[]">
+                        </div>
+                    </div>
+                </td>
+                <td><input type="number" name="item-quantity[]" required></td>
+                <td><input type="text" name="item-price[]" required></td>
+                <td>
+                    <select name="item-tax[]">
+                        <option value="0">0</option>
+                        <option value="19" selected>19</option>
+                    </select>
+                </td>
+                <td class="item-total">0.00 Rs.</td>
+                <td><button class="btn btn-danger remove-item">Remove</button></td>
+            `;
+            invoiceItemsTable.querySelector('tbody').appendChild(newRow);
+            const quantityInput = newRow.querySelector('input[name="item-quantity[]"]');
+            const priceInput = newRow.querySelector('input[name="item-price[]"]');
+            const taxSelect = newRow.querySelector('select[name="item-tax[]"]');
+
+            quantityInput.addEventListener('input', () => {
+                updateItemTotal(newRow);
+                updateSummary();
+            });
+            priceInput.addEventListener('input', () => {
+                updateItemTotal(newRow);
+                updateSummary();
+            });
+            taxSelect.addEventListener('change', () => {
+                updateItemTotal(newRow);
+                updateSummary();
+            });
+
+            const removeButton = newRow.querySelector('.remove-item');
+            removeButton.addEventListener('click', () => {
+                newRow.remove();
+                updateSummary();
+            });
+            updateSummary();
+        });
+
+        addAllowanceChargeButton.addEventListener('click', () => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>
+                    <select name="allowance-charge-type[]">
+                        <option value="Allowance">Allowance</option>
+                        <option value="Charge">Charge</option>
+                    </select>
+                </td>
+                <td><input type="text" name="allowance-charge-description[]" required></td>
+                <td>
+                    <select name="allowance-charge-tax[]">
+                        <option value="0">0</option>
+                        <option value="19" selected>19</option>
+                    </select>
+                </td>
+                <td class="allowance-charge-total">0.00 Rs.</td>
+                <td><button class="btn btn-danger remove-allowance-charge">Remove</button></td>
+            `;
+            allowanceChargesTable.querySelector('tbody').appendChild(newRow);
+
+            const typeSelect = newRow.querySelector('select[name="allowance-charge-type[]"]');
+            const descriptionInput = newRow.querySelector('input[name="allowance-charge-description[]"]');
+            const taxSelect = newRow.querySelector('select[name="allowance-charge-tax[]"]');
+
+
+            typeSelect.addEventListener('change', () => {
+                calculateAllowanceChargeTotal(newRow);
+                updateSummary();
+            });
+            descriptionInput.addEventListener('input', () => {
+                calculateAllowanceChargeTotal(newRow);
+                updateSummary();
+            });
+            taxSelect.addEventListener('change', () => {
+                calculateAllowanceChargeTotal(newRow);
+                updateSummary();
+            });
+
+            const removeButton = newRow.querySelector('.remove-allowance-charge');
+            removeButton.addEventListener('click', () => {
+                newRow.remove();
+                updateSummary();
+            });
+            calculateAllowanceChargeTotal(newRow);
+            updateSummary();
+        });
+
+        invoiceItemsTable.addEventListener('input', (event) => {
+            const target = event.target;
+            if (target.name === 'item-quantity[]' || target.name === 'item-price[]' || target.name === 'item-tax[]') {
+                const row = target.closest('tr');
+                updateItemTotal(row);
+                updateSummary();
+            }
+        });
+
+        allowanceChargesTable.addEventListener('input', (event) => {
+            const target = event.target;
+            if (target.name === 'allowance-charge-description[]' || target.name === 'allowance-charge-tax[]') {
+                const row = target.closest('tr');
+                calculateAllowanceChargeTotal(row);
+                updateSummary();
+            }
+        });
+        allowanceChargesTable.addEventListener('change', (event) => {
+            const target = event.target;
+             if (target.name === 'allowance-charge-type[]') {
+                const row = target.closest('tr');
+                calculateAllowanceChargeTotal(row);
+                updateSummary();
+            }
+        });
+
+        invoiceForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+           // alert('Invoice generated! (Preview will open)');
+            generateInvoicePreview();
+        });
+
+        previewButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            generateInvoicePreview();
+        });
+
+        closePreviewButton.addEventListener('click', () => {
+            previewModal.style.display = 'none';
+        });
+
+        saveInvoiceButton.addEventListener('click', () => {
+            // In a real application, you would send the invoice data to a server to be saved.
+            // This is a simplified example that just downloads the HTML.
+            const htmlContent = invoiceContentPreview.innerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'invoice.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            alert('Invoice saved!');
+        });
+
+       function generateInvoicePreview() {
+            const senderName = document.getElementById('sender-name').value;
+            const senderEmail = document.getElementById('sender-email').value;
+            const senderAddress = document.getElementById('sender-address').value;
+            const senderTel = document.getElementById('sender-tel').value;
+            const senderId = document.getElementById('sender-id').value;
+            const senderVatId = document.getElementById('sender-vat-id').value;
+            const senderTaxId = document.getElementById('sender-tax-id').value;
+            const senderTradeName = document.getElementById('sender-trade-name').value;
+            const senderTradeId = document.getElementById('sender-trade-id').value;
+             const senderEAddress=  document.getElementById('sender-e-address').value;
+
+            const recipientName = document.getElementById('recipient-name').value;
+            const recipientEmail = document.getElementById('recipient-email').value;
+            const recipientAddress = document.getElementById('recipient-address').value;
+            const recipientId = document.getElementById('recipient-id').value;
+            const recipientTradeName = document.getElementById('recipient-trade-name').value;
+            const recipientTradeId = document.getElementById('recipient-trade-id').value;
+            const recipientVatId = document.getElementById('recipient-vat-id').value;
+            const recipientEAddress = document.getElementById('recipient-e-address').value;
+
+            const invoiceNo = document.getElementById('invoice-no').value;
+            const invoiceDate = document.getElementById('invoice-date').value;
+            const deliveryDate = document.getElementById('delivery-date').value;
+            const billingPeriod = document.getElementById('billing-period').value;
+            const dueDate = document.getElementById('due-date').value;
+            const buyerReference = document.getElementById('buyer-reference').value;
+            const projectNumber = document.getElementById('project-number').value;
+            const contractNumber = document.getElementById('contract-number').value;
+            const purchaseOrderNumber = document.getElementById('purchase-order-number').value;
+            const orderNumber = document.getElementById('order-number').value;
+            const paymentReference = document.getElementById('payment-reference').value;
+            const invoiceReference = document.getElementById('invoice-reference').value;
+
+            const deliveryName = document.getElementById('delivery-name').value;
+            const deliveryLocationId = document.getElementById('delivery-location-id').value;
+            const deliveryAddress = document.getElementById('delivery-address').value;
+
+            const remarksNotes = document.getElementById('remarks-notes').value;
+
+            let invoiceItemsHTML = `
+                <h2>Invoice Items</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Tax (%)</th>
+                            <th>Total</th>
+                             <th>Period</th>
+                            <th>Article no</th>
+                            <th>Order position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            const itemRows = invoiceItemsTable.querySelectorAll('tbody tr');
+            itemRows.forEach(row => {
+                const itemName = row.querySelector('input[name="item-name[]"]').value;
+                const quantity = row.querySelector('input[name="item-quantity[]"]').value;
+                const price = row.querySelector('input[name="item-price[]"]').value;
+                const tax = row.querySelector('select[name="item-tax[]"]').value;
+                const total = row.querySelector('.item-total').textContent;
+                const period = row.querySelector('input[name="item-period[]"]').value;
+                const articleNo = row.querySelector('input[name="item-article-no[]"]').value;
+                const orderPosition = row.querySelector('input[name="item-order-position[]"]').value;
+
+                invoiceItemsHTML += `
+                        <tr>
+                            <td>${itemName}</td>
+                            <td>${quantity}</td>
+                            <td>${price}</td>
+                            <td>${tax}</td>
+                            <td>${total}</td>
+                            <td>${period}</td>
+                            <td>${articleNo}</td>
+                            <td>${orderPosition}</td>
+                        </tr>
+                `;
+            });
+
+            invoiceItemsHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            let allowanceChargesHTML = `
+                <h2>Allowance and Charges</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Tax (%)</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            const allowanceChargeRows = allowanceChargesTable.querySelectorAll('tbody tr');
+            allowanceChargeRows.forEach(row => {
+                const type = row.querySelector('select[name="allowance-charge-type[]"]').value;
+                const description = row.querySelector('input[name="allowance-charge-description[]"]').value;
+                const tax = row.querySelector('select[name="allowance-charge-tax[]"]').value;
+                const total = row.querySelector('.allowance-charge-total').textContent;
+
+                allowanceChargesHTML += `
+                        <tr>
+                            <td>${type}</td>
+                            <td>${description}</td>
+                            <td>${tax}</td>
+                            <td>${total}</td>
+                        </tr>
+                `;
+            });
+            allowanceChargesHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            const summaryHTML = document.getElementById('invoice-summary').innerHTML;
+
+            const invoiceHTML = `
+                <div style="font-family: 'Inter', sans-serif; width: 100%; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <h1 style="color: #333; text-align: center; margin-bottom: 20px;">Invoice</h1>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <div>
+                            <h2 style="color: #555; margin-bottom: 10px;">Sender Details</h2>
+                            <p><strong>Name:</strong> ${senderName}</p>
+                            <p><strong>E-Mail:</strong> ${senderEmail}</p>
+                            <p><strong>Address:</strong> ${senderAddress}</p>
+                            <p><strong>Tel:</strong> ${senderTel}</p>
+                            <p><strong>ID:</strong> ${senderId}</p>
+                            <p><strong>VAT ID:</strong> ${senderVatId}</p>
+                            <p><strong>Tax ID:</strong> ${senderTaxId}</p>
+                            <p><strong>Trade Name:</strong> ${senderTradeName}</p>
+                            <p><strong>Trade ID:</strong> ${senderTradeId}</p>
+                            <p><strong>E-Address:</strong> ${senderEAddress}</p>
+                        </div>
+                        <div>
+                            <h2 style="color: #555; margin-bottom: 10px;">Recipient Details</h2>
+                            <p><strong>Name:</strong> ${recipientName}</p>
+                            <p><strong>E-Mail:</strong> ${recipientEmail}</p>
+                             <p><strong>Address:</strong> ${recipientAddress}</p>
+                            <p><strong>ID:</strong> ${recipientId}</p>
+                            <p><strong>Trade Name:</strong> ${recipientTradeName}</p>
+                            <p><strong>Trade ID:</strong> ${recipientTradeId}</p>
+                            <p><strong>VAT ID:</strong> ${recipientVatId}</p>
+                            <p><strong>E-Address:</strong> ${recipientEAddress}</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="color: #555; margin-bottom: 10px;">Invoice Details</h2>
+                        <p><strong>Invoice No.:</strong> ${invoiceNo}</p>
+                        <p><strong>Invoice Date:</strong> ${invoiceDate}</p>
+                        <p><strong>Delivery Date:</strong> ${deliveryDate}</p>
+                        <p><strong>Billing Period:</strong> ${billingPeriod}</p>
+                        <p><strong>Due Date:</strong> ${dueDate}</p>
+                        <p><strong>Buyer Reference:</strong> ${buyerReference}</p>
+                        <p><strong>Project Number:</strong> ${projectNumber}</p>
+                        <p><strong>Contract Number:</strong> ${contractNumber}</p>
+                        <p><strong>Purchase Order Number:</strong> ${purchaseOrderNumber}</p>
+                        <p><strong>Order Number:</strong> ${orderNumber}</p>
+                        <p><strong>Payment Reference:</strong> ${paymentReference}</p>
+                        <p><strong>Invoice Reference:</strong> ${invoiceReference}</p>
+                    </div>
+
+                    ${invoiceItemsHTML}
+
+                    ${allowanceChargesHTML}
+
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="color: #555; margin-bottom: 10px;">Delivery Details</h2>
+                        <p><strong>Name:</strong> ${deliveryName}</p>
+                         <p><strong>Location ID:</strong> ${deliveryLocationId}</p>
+                        <p><strong>Address:</strong> ${deliveryAddress}</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="color: #555; margin-bottom: 10px;">Remarks and Notes</h2>
+                        <p>${remarksNotes}</p>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: right;">
+                       ${summaryHTML}
+                    </div>
+                </div>
+            `;
+            invoiceContentPreview.innerHTML = invoiceHTML;
+            previewModal.style.display = 'flex';
+        }
+
+        updateSummary();
+    </script>
+
+
+</body></html>

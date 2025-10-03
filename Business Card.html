@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/adity/Documents/ghfbd.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supercharged Electric Business Card</title>
+    <script src="./Business Card_files/saved_resource"></script>
+    <link rel="stylesheet" href="./Business Card_files/all.min.css">
+    <style>
+        /* Custom fonts for a high-impact look */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --neon-blue: #00eaff;
+            --neon-purple: #ae00ff;
+            --dark-bg: #1a1a2e;
+            --card-bg: #0f0f1a;
+            --text-color: #e0e0e0;
+            --accent-glow-blue: 0 0 8px var(--neon-blue), 0 0 16px var(--neon-blue), 0 0 24px var(--neon-blue), 0 0 32px var(--neon-blue);
+            --accent-glow-purple: 0 0 8px var(--neon-purple), 0 0 16px var(--neon-purple), 0 0 24px var(--neon-purple), 0 0 32px var(--neon-purple);
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace; /* Techy, monospaced font */
+            background: radial-gradient(circle at center, #2c003e 0%, #0a0a1a 100%); /* Deep, dark radial gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            color: var(--text-color);
+        }
+
+        .business-card {
+            width: 3.5in;
+            height: 3 in;
+            background-color: var(--card-bg); /* Very dark card background */
+            border: 2px solid var(--neon-purple); /* Neon purple border */
+            border-radius: 12px; /* Slightly more rounded for a modern tech feel */
+            box-shadow: 0 0 35px rgba(174, 0, 255, 0.7), 0 0 70px rgba(0, 234, 255, 0.5); /* Stronger dual color glow */
+            padding: 1.25rem; /* Adjusted padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+            transform-style: preserve-3d; /* For 3D tilt effect */
+        }
+
+        .business-card:hover {
+            transform: perspective(1200px) rotateX(5deg) rotateY(5deg) translateY(-10px) scale(1.02); /* More dramatic 3D tilt and slight scale */
+            box-shadow: 0 0 50px rgba(174, 0, 255, 0.9), 0 0 100px rgba(0, 234, 255, 0.7); /* Even stronger glow on hover */
+        }
+
+        /* Responsive adjustments for print */
+        @media print {
+            body {
+                background-color: #0a0a1a; /* Dark background for print */
+                display: block;
+                min-height: auto;
+                padding: 0;
+            }
+            .business-card {
+                margin: 0 auto;
+                box-shadow: none; /* No shadow in print */
+                border: 1px solid var(--neon-purple);
+                width: 3.5in;
+                height: 2in;
+            }
+        }
+
+        /* Electric decorative elements */
+        .electric-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(to right, rgba(0, 234, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 234, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .electric-pulse {
+            position: absolute;
+            background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse 4s infinite ease-out;
+            z-index: 0;
+        }
+        .electric-pulse-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .electric-pulse-2 { bottom: 15%; right: 20%; animation-delay: 1.5s; }
+
+        @keyframes pulse {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.5); opacity: 0.3; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1; /* Ensure content is above decorative elements */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute space */
+            align-items: center;
+            flex-grow: 1;
+            padding-top: 0.5rem; /* Space for logo */
+            padding-bottom: 0.5rem; /* Space for social links */
+        }
+
+        .logo-placeholder {
+            width: 40px;
+            height: 40px;
+            background-color: var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--card-bg);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            box-shadow: var(--accent-glow-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif; /* Futuristic, bold font for name */
+            font-weight: 900;
+            font-size: 2.5rem; /* Slightly adjusted size for more info */
+            color: var(--neon-blue); /* Neon blue color */
+            text-shadow: var(--accent-glow-blue); /* Glowing text effect */
+            margin-bottom: 0.25rem;
+            letter-spacing: 2px; /* Spaced out letters */
+        }
+
+        .tagline {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .profession {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--neon-purple); /* Neon purple for profession */
+            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem; /* Tighter spacing for more info */
+            font-size: 0.85rem;
+            margin-bottom: 1rem; /* Space before social links */
+        }
+
+        .contact-info p {
+            color: var(--text-color);
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-info i {
+            color: var(--neon-blue); /* Neon blue icons */
+            margin-right: 0.5rem;
+            text-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        .social-links-wrapper {
+            position: relative;
+            z-index: 1;
+            border-top: 1px dashed rgba(0, 234, 255, 0.3); /* Dashed neon border */
+            padding-top: 0.75rem; /* Adjusted padding */
+            margin-top: 0.75rem; /* Adjusted margin */
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem; /* Adjusted space between icons */
+        }
+
+        .social-link-icon {
+            color: var(--neon-purple); /* Neon purple icons */
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+            text-shadow: 0 0 8px var(--neon-purple); /* Initial icon glow */
+        }
+        .social-link-icon:hover {
+            color: var(--neon-blue); /* Neon blue on hover */
+            transform: scale(1.2) translateY(-4px); /* Stronger scale and lift */
+            text-shadow: 0 0 15px var(--neon-blue), 0 0 25px var(--neon-blue); /* Stronger glow on hover */
+        }
+
+        .qr-code-placeholder {
+            width: 50px;
+            height: 50px;
+            background-color: var(--neon-blue);
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.6rem;
+            color: var(--card-bg);
+            font-weight: bold;
+            border-radius: 4px;
+            box-shadow: var(--accent-glow-blue);
+            z-index: 2; /* Ensure it's on top */
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.text-2xl{font-size:1.5rem;line-height:2rem}.font-extrabold{font-weight:800}</style></head>
+<body>
+    <div class="business-card">
+        <div class="electric-grid"></div>
+        <div class="electric-pulse electric-pulse-1"></div> 
+        <div class="electric-pulse electric-pulse-2"></div>
+
+        <div class="content-wrapper">
+            <div class="logo-placeholder">AdityaX</div>
+
+            <h1 class="font-extrabold">Aditya</h1>
+            <p class="tagline">The Code. The Chart. The Change</p>
+            <p class="profession">Trader | Developer</p>
+
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i>adityagupta8268@Gmail.com</p>
+                <p><i class="fas fa-globe"></i>www.itsmeaditya2276.wixsite.com/adityax</p>
+            </div>
+        </div>
+
+        <div class="social-links-wrapper">
+            <a href="mailto:adityagupta8268@gmail.com" class="social-link-icon">
+                <i class="fas fa-envelope text-2xl"></i>
+            </a>
+            <a href="https://instagram.com/adixanarchy" target="_blank" rel="noopener noreferrer" class="www.instagram.com">
+                <i class="fab fa-instagram text-2xl"></i>
+            </a>
+            <a href="file:///C:/Users/adity/Documents/itsmeaditya2276.wixsite.com/adityax" target="_blank" rel="noopener noreferrer" class="www.instagram.com">
+                <i class="fab fa-linkedin text-2xl"></i>
+            </a>
+        </div>
+
+        
+    </div>
+
+
+</body></html>

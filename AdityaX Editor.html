@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/adity/Documents/qwewq.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>AdityaX Editor</title>
+  <script src="./AdityaX Editor_files/jspdf.umd.min.js.download"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #0f172a;
+      color: white;
+    }
+    .toolbar {
+      margin-bottom: 10px;
+    }
+    .toolbar button, .toolbar select {
+      margin-right: 5px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #editor {
+      width: 100%;
+      height: 400px;
+      border: 2px solid #64748b;
+      border-radius: 10px;
+      padding: 10px;
+      background: #1e293b;
+      color: white;
+      overflow-y: auto;
+    }
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>AdityaX Editor 🚀</h1>
+
+  <div class="toolbar">
+    <button onclick="format(&#39;bold&#39;)"><b>B</b></button>
+    <button onclick="format(&#39;italic&#39;)"><i>I</i></button>
+    <button onclick="format(&#39;underline&#39;)"><u>U</u></button>
+    <select onchange="format(&#39;fontSize&#39;, this.value)">
+      <option value="3">Normal</option>
+      <option value="5">Large</option>
+      <option value="7">Huge</option>
+    </select>
+    <input type="color" onchange="format(&#39;foreColor&#39;, this.value)">
+    <button onclick="savePDF()">💾 Save as PDF</button>
+  </div>
+
+  <div id="editor" contenteditable="true"><br></div>
+
+  <script>
+    // Formatting function
+    function format(command, value) {
+      document.execCommand(command, false, value);
+    }
+
+    // Save content as PDF
+    async function savePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF("p", "pt", "a4");
+      let content = document.getElementById("editor").innerText;
+
+      // Multi-line handling
+      const lines = doc.splitTextToSize(content, 500);
+      doc.text(lines, 40, 60);
+
+      doc.save("AdityaX.pdf");
+    }
+  </script>
+
+
+
+</body></html>

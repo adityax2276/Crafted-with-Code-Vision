@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/adity/Documents/newsapp.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live News Hub</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #eef1f5;
+      margin: 0; 
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      gap: 10px;
+    }
+    nav button {
+      background: #007bff;
+      border: none;
+      color: #fff;
+      padding: 12px 18px;
+      font-size: 15px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    nav button:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .news-section {
+      max-width: 900px;
+      margin: 25px auto;
+      padding: 0 15px;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .card a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .card a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+    .card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+      background: #007bff;
+      color: white;
+      font-size: 14px;
+      box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <header>📰 Live News Hub</header>
+
+  <nav>
+    <button onclick="loadNews(&#39;bbc&#39;)">🌍 Global News</button>
+    <button onclick="loadNews(&#39;hindu&#39;)">🇮🇳 India News</button>
+    <button onclick="loadNews(&#39;economy&#39;)">💹 Economic News</button>
+  </nav>
+
+  <div id="news" class="news-section">
+    <p style="text-align:center; font-size:16px; color:#666;">Choose a category to load live news...</p>
+  </div>
+
+  <footer>✨ Built with ❤️By AdityaX for Live News Updates</footer>
+
+  <script>
+    const feeds = {
+      bbc: "https://api.allorigins.win/get?url=" + encodeURIComponent("https://feeds.bbci.co.uk/news/world/rss.xml"),
+      hindu: "https://api.allorigins.win/get?url=" + encodeURIComponent("https://www.thehindu.com/news/national/feeder/default.rss"),
+      economy: "https://api.allorigins.win/get?url=" + encodeURIComponent("https://economictimes.indiatimes.com/rssfeedsdefault.cms")
+    };
+
+    async function loadNews(type) {
+      document.getElementById("news").innerHTML = "<p style='text-align:center; font-size:16px;'>⏳ Loading news...</p>";
+      try {
+        let res = await fetch(feeds[type]);
+        let data = await res.json();
+        let parser = new DOMParser();
+        let xml = parser.parseFromString(data.contents, "text/xml");
+        let items = xml.querySelectorAll("item");
+
+        let output = "";
+        items.forEach((item, index) => {
+          if (index < 6) {
+            let title = item.querySelector("title").textContent;
+            let link = item.querySelector("link").textContent;
+            let desc = item.querySelector("description")?.textContent || "";
+            output += `
+              <div class="card">
+                <a href="${link}" target="_blank">${title}</a>
+                <p>${desc}</p>
+              </div>
+            `;
+          }
+        });
+        document.getElementById("news").innerHTML = output;
+      } catch (error) {
+        document.getElementById("news").innerHTML = "<p style='text-align:center; color:red;'>❌ Error loading news. Try again.</p>";
+      }
+    }
+  </script>
+
+
+</body></html>

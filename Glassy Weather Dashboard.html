@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)file:///C:/Users/adity/Documents/asd.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassy Weather Dashboard</title>
+  <script src="./Glassy Weather Dashboard_files/chart.js.download"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .dashboard {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(25px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 95%;
+      max-width: 1100px;
+      box-shadow: 0 0 50px rgba(0,0,0,0.6);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      opacity: 0.8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.12);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .panel:hover {
+      transform: translateY(-5px);
+    }
+
+    .panel h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #e0e0e0;
+    }
+
+    .panel p {
+      font-size: 16px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    canvas {
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <header>
+      <h1>🌍 Weather in <span id="location">Detecting...</span></h1>
+      <p id="description">Loading forecast...</p>
+    </header>
+
+    <div class="grid">
+      <div class="panel"><h3>🌡️ Temperature</h3><p id="temp">--°C</p></div>
+      <div class="panel"><h3>🥵 Feels Like</h3><p id="feels">--°C</p></div>
+      <div class="panel"><h3>💧 Humidity</h3><p id="humidity">--%</p></div>
+      <div class="panel"><h3>🌬️ Wind</h3><p id="wind">-- km/h</p></div>
+      <div class="panel"><h3>🌫️ Visibility</h3><p id="visibility">-- km</p></div>
+      <div class="panel"><h3>🌡️ Pressure</h3><p id="pressure">-- mb</p></div>
+      <div class="panel"><h3>🌅 Sunrise</h3><p id="sunrise">--</p></div>
+      <div class="panel"><h3>🌇 Sunset</h3><p id="sunset">--</p></div>
+      <div class="panel"><h3>🌕 Moon Phase</h3><p id="moon">--</p></div>
+    </div>
+
+    <h3 style="text-align:center;">📈 Temperature Trend</h3>
+    <canvas id="tempChart"></canvas>
+  </div>
+
+  <script>
+    async function getWeather(lat, lon) {
+      const url = `https://wttr.in/${lat},${lon}?format=j1`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      const current = data.current_condition[0];
+      const astronomy = data.weather[0].astronomy[0];
+
+      document.getElementById("location").innerText = data.nearest_area[0].areaName[0].value;
+      document.getElementById("description").innerText = data.weather[0].hourly[0].weatherDesc[0].value;
+      document.getElementById("temp").innerText = current.temp_C + "°C";
+      document.getElementById("feels").innerText = current.FeelsLikeC + "°C";
+      document.getElementById("humidity").innerText = current.humidity + "%";
+      document.getElementById("wind").innerText = current.windspeedKmph + " km/h";
+      document.getElementById("visibility").innerText = current.visibility + " km";
+      document.getElementById("pressure").innerText = current.pressure + " mb";
+      document.getElementById("sunrise").innerText = astronomy.sunrise;
+      document.getElementById("sunset").innerText = astronomy.sunset;
+      document.getElementById("moon").innerText = astronomy.moon_phase;
+
+      const hourly = data.weather[0].hourly;
+      const labels = hourly.map((h, i) => `${i * 3}h`);
+      const temps = hourly.map(h => h.tempC);
+
+      new Chart(document.getElementById("tempChart"), {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "Temp °C",
+            data: temps,
+            borderColor: "#00c6ff",
+            backgroundColor: "rgba(0,198,255,0.2)",
+            fill: true,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: false }
+          }
+        }
+      });
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      pos => getWeather(pos.coords.latitude, pos.coords.longitude),
+      err => {
+        console.error(err);
+        getWeather(26.2361, 83.7097); // fallback to Bhatparrani
+      }
+    );
+  </script>
+
+
+</body></html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)file:///C:/Users/adity/OneDrive/Pictures/asdasd.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch the Fruits</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #87ceeb, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    canvas {
+      background: #f0f0f0;
+      border: 3px solid #333;
+      border-radius: 10px;
+      touch-action: none; /* disable scrolling on touch */
+    }
+    #scoreBoard {
+      position: absolute;
+      top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #222;
+    }
+    #watermark {
+      position: absolute;
+      bottom: 10px;
+      font-size: 14px;
+      color: #444;
+      font-weight: bold;
+    }
+    #gameOverScreen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      display: none;
+    }
+    #gameOverScreen h1 {
+      font-size: 36px;
+      color: red;
+    }
+    #restartBtn {
+      margin-top: 10px;
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="scoreBoard">Score: 0</div>
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+  <!-- Game Over Screen -->
+  <div id="gameOverScreen" style="display: block;">
+    <h1>Game Over!</h1>
+    <p id="finalScore">Your Score: 0</p>
+    <div id="restartBtn">Restart</div>
+  </div>
+
+  <!-- Watermark -->
+  <div id="watermark">Made by AdityaX</div>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const scoreBoard = document.getElementById("scoreBoard");
+    const gameOverScreen = document.getElementById("gameOverScreen");
+    const finalScore = document.getElementById("finalScore");
+    const restartBtn = document.getElementById("restartBtn");
+
+    let basket, fruits, score, gameOver;
+    let dragging = false;
+
+    function initGame() {
+      basket = { x: 160, y: 550, width: 80, height: 20 };
+      fruits = [];
+      score = 0;
+      gameOver = false;
+      scoreBoard.textContent = "Score: 0";
+      gameOverScreen.style.display = "none";
+    }
+
+    function drawBasket() {
+      ctx.fillStyle = "brown";
+      ctx.fillRect(basket.x, basket.y, basket.width, basket.height);
+    }
+
+    function drawFruit(fruit) {
+      ctx.beginPath();
+      ctx.arc(fruit.x, fruit.y, fruit.radius, 0, Math.PI * 2);
+      ctx.fillStyle = fruit.color;
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function spawnFruit() {
+      const colors = ["red", "green", "orange", "purple"];
+      let fruit = {
+        x: Math.random() * (canvas.width - 20) + 10,
+        y: 0,
+        radius: 12,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speed: 3 + Math.random() * 2
+      };
+      fruits.push(fruit);
+    }
+
+    function updateFruits() {
+      for (let i = 0; i < fruits.length; i++) {
+        fruits[i].y += fruits[i].speed;
+
+        // collision with basket
+        if (
+          fruits[i].y + fruits[i].radius > basket.y &&
+          fruits[i].x > basket.x &&
+          fruits[i].x < basket.x + basket.width
+        ) {
+          score++;
+          fruits.splice(i, 1);
+          i--;
+          continue;
+        }
+
+        // if fruit missed -> GAME OVER
+        if (fruits[i].y > canvas.height) {
+          gameOver = true;
+        }
+      }
+    }
+
+    function draw() {
+      if (gameOver) {
+        finalScore.textContent = "Your Score: " + score;
+        gameOverScreen.style.display = "block";
+        return;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      drawBasket();
+      fruits.forEach(drawFruit);
+      updateFruits();
+
+      scoreBoard.textContent = "Score: " + score;
+    }
+
+    // Keyboard controls (PC)
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" && basket.x > 0) basket.x -= 20;
+      if (e.key === "ArrowRight" && basket.x + basket.width < canvas.width) basket.x += 20;
+    });
+
+    // Touch controls (Mobile drag)
+    canvas.addEventListener("touchstart", (e) => {
+      const touchX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+      if (touchX > basket.x && touchX < basket.x + basket.width) {
+        dragging = true;
+      }
+    });
+
+    canvas.addEventListener("touchmove", (e) => {
+      if (dragging) {
+        const touchX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+        basket.x = touchX - basket.width / 2;
+        if (basket.x < 0) basket.x = 0;
+        if (basket.x + basket.width > canvas.width) basket.x = canvas.width - basket.width;
+      }
+    });
+
+    canvas.addEventListener("touchend", () => {
+      dragging = false;
+    });
+
+    restartBtn.addEventListener("click", initGame);
+
+    // Game loop
+    setInterval(draw, 20);
+    setInterval(() => {
+      if (!gameOver) spawnFruit();
+    }, 1500);
+
+    initGame();
+  </script>
+
+
+</body></html>

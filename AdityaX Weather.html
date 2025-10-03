@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)file:///C:/Users/adity/Documents/teachers%20day.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdityaX Weather</title>
+  <script src="./AdityaX Weather_files/saved_resource"></script>
+  <link href="./AdityaX Weather_files/css2" rel="stylesheet">
+  <style>
+    :root{ --bg:url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1600&auto=format&fit=crop'); }
+    body{ font-family: Inter, system-ui, sans-serif; }
+    .glass{ backdrop-filter: blur(14px); background: rgba(255,255,255,0.08); }
+    .rad{ border-radius: 1.25rem; }
+    .shadow-soft{ box-shadow: 0 10px 35px rgba(0,0,0,0.2); }
+    .bg-sky{ background-image: var(--bg); background-size: cover; background-position: center; }
+    .loader {
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.inset-0{inset:0px}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-4{margin-bottom:1rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-6{margin-top:1.5rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.min-h-screen{min-height:100vh}.w-56{width:14rem}.max-w-6xl{max-width:72rem}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.bg-black\/30{background-color:rgb(0 0 0 / 0.3)}.bg-black\/70{background-color:rgb(0 0 0 / 0.7)}.bg-transparent{background-color:transparent}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.p-6{padding:1.5rem}.p-3{padding:0.75rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.pb-10{padding-bottom:2.5rem}.pt-6{padding-top:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-6xl{font-size:3.75rem;line-height:1}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-semibold{font-weight:600}.leading-none{line-height:1}.tracking-tight{letter-spacing:-0.025em}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-white\/70{color:rgb(255 255 255 / 0.7)}.text-white\/80{color:rgb(255 255 255 / 0.8)}.placeholder-white\/60::placeholder{color:rgb(255 255 255 / 0.6)}.outline-none{outline:2px solid transparent;outline-offset:2px}.hover\:bg-white\/20:hover{background-color:rgb(255 255 255 / 0.2)}@media (min-width: 640px){.sm\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:justify-between{justify-content:space-between}}@media (min-width: 768px){.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}.md\:justify-between{justify-content:space-between}}@media (min-width: 1024px){.lg\:col-span-2{grid-column:span 2 / span 2}.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:grid-cols-7{grid-template-columns:repeat(7, minmax(0, 1fr))}}</style></head>
+<body class="bg-sky min-h-screen">
+  <div class="min-h-screen bg-black/30">
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto px-4 pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <h1 class="text-white text-3xl font-extrabold tracking-tight">AdityaX Weather</h1>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 glass rad px-3 py-2 shadow-soft">
+          <input id="searchInput" class="bg-transparent outline-none text-white placeholder-white/60 w-56" placeholder="Search city (e.g., Deoria, IN)">
+          <button id="searchBtn" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rad text-sm">Search</button>
+          <button id="geoBtn" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rad text-sm">Use GPS</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Loader Overlay -->
+    <div id="loaderOverlay" class="fixed inset-0 flex flex-col items-center justify-center bg-black/70 text-white z-50 hidden">
+      <div class="loader"></div>
+      <p class="mt-4 text-lg font-semibold animate-pulse">Fetching weather data…</p>
+    </div>
+
+    <!-- Main -->
+    <main class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Current Weather -->
+      <section class="lg:col-span-2">
+        <div class="glass rad p-6 shadow-soft text-white">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div>
+              <div class="text-2xl font-bold" id="locName">New Delhi</div>
+              <div class="text-white/70 text-sm" id="locCoords">28.61, 77.23</div>
+              <div class="mt-2 flex flex-wrap items-center gap-2 text-sm" id="metaLine"><span class="bg-white/10 rad px-2 py-1">Wind 9 km/h</span><span class="bg-white/10 rad px-2 py-1">Humidity 57%</span><span class="bg-white/10 rad px-2 py-1">Clouds 61%</span><span class="bg-white/10 rad px-2 py-1">Pressure 980 hPa</span></div>
+            </div>
+            <div class="text-right">
+              <div class="text-6xl font-extrabold leading-none" id="temp">33°C</div>
+              <div class="text-white/80" id="summary">Feels like 37°C</div>
+            </div>
+          </div>
+          <div class="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3" id="currentStats"><div class="bg-white/10 rad p-3"><div class="text-sm text-white/70">Temperature</div><div class="text-xl font-semibold">33°C</div></div><div class="bg-white/10 rad p-3"><div class="text-sm text-white/70">Feels Like</div><div class="text-xl font-semibold">37°C</div></div><div class="bg-white/10 rad p-3"><div class="text-sm text-white/70">Humidity</div><div class="text-xl font-semibold">57%</div></div><div class="bg-white/10 rad p-3"><div class="text-sm text-white/70">Cloud Cover</div><div class="text-xl font-semibold">61%</div></div></div>
+        </div>
+
+        <!-- Daily Forecast -->
+        <div class="glass rad p-6 shadow-soft text-white mt-6">
+          <h2 class="text-lg font-semibold mb-4">7-Day Forecast</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3" id="dailyGrid">
+          <div class="bg-white/10 rad p-3 text-center">
+            <div class="text-sm text-white/70">Tue</div>
+            <div class="text-xl font-bold">35°C</div>
+            <div class="text-white/70 text-sm">/27°C</div>
+          </div>
+          <div class="bg-white/10 rad p-3 text-center">
+            <div class="text-sm text-white/70">Wed</div>
+            <div class="text-xl font-bold">35°C</div>
+            <div class="text-white/70 text-sm">/27°C</div>
+          </div>
+          <div class="bg-white/10 rad p-3 text-center">
+            <div class="text-sm text-white/70">Thu</div>
+            <div class="text-xl font-bold">35°C</div>
+            <div class="text-white/70 text-sm">/26°C</div>
+          </div>
+          <div class="bg-white/10 rad p-3 text-center">
+            <div class="text-sm text-white/70">Fri</div>
+            <div class="text-xl font-bold">35°C</div>
+            <div class="text-white/70 text-sm">/26°C</div>
+          </div>
+          <div class="bg-white/10 rad p-3 text-center">
+            <div class="text-sm text-white/70">Sat</div>
+            <div class="text-xl font-bold">31°C</div>
+            <div class="text-white/70 text-sm">/27°C</div>
+          </div>
+          <div class="bg-white/10 rad p-3 text-center">
+            <div class="text-sm text-white/70">Sun</div>
+            <div class="text-xl font-bold">30°C</div>
+            <div class="text-white/70 text-sm">/26°C</div>
+          </div>
+          <div class="bg-white/10 rad p-3 text-center">
+            <div class="text-sm text-white/70">Mon</div>
+            <div class="text-xl font-bold">30°C</div>
+            <div class="text-white/70 text-sm">/25°C</div>
+          </div></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="max-w-6xl mx-auto px-4 pb-10 text-white/70 text-xs text-center">
+      © 2025 AdityaX Weather • Data by Open-Meteo &amp; OSM
+    </footer>
+  </div>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const loaderOverlay = document.getElementById('loaderOverlay');
+
+    const fmtTemp = (v) => v==null ? '—' : `${Math.round(v)}°C`;
+    const fmtSpeed = (v) => v==null ? '—' : `${Math.round(v)} km/h`;
+    const fmtPerc = (v) => v==null ? '—' : `${Math.round(v)}%`;
+
+    async function geocode(query){
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if(!data[0]) throw new Error('Location not found');
+      return { lat:+data[0].lat, lon:+data[0].lon, name:data[0].display_name };
+    }
+
+    async function fetchWeather(lat, lon){
+      const params = new URLSearchParams({
+        latitude:lat, longitude:lon, timezone:'auto',
+        current:['temperature_2m','apparent_temperature','relative_humidity_2m','weather_code','wind_speed_10m','surface_pressure','cloud_cover'].join(','),
+        daily:['weather_code','temperature_2m_max','temperature_2m_min'].join(',')
+      });
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
+      return res.json();
+    }
+
+    function renderCurrent(data){
+      const c = data.current;
+      el('temp').textContent = fmtTemp(c.temperature_2m);
+      el('summary').textContent = `Feels like ${fmtTemp(c.apparent_temperature)}`;
+      const meta = [
+        `Wind ${fmtSpeed(c.wind_speed_10m)}`,
+        `Humidity ${fmtPerc(c.relative_humidity_2m)}`,
+        `Clouds ${fmtPerc(c.cloud_cover)}`,
+        `Pressure ${Math.round(c.surface_pressure)} hPa`
+      ];
+      el('metaLine').innerHTML = meta.map(m=>`<span class="bg-white/10 rad px-2 py-1">${m}</span>`).join('');
+
+      const stats = [
+        {label:'Temperature', value:fmtTemp(c.temperature_2m)},
+        {label:'Feels Like', value:fmtTemp(c.apparent_temperature)},
+        {label:'Humidity', value:fmtPerc(c.relative_humidity_2m)},
+        {label:'Cloud Cover', value:fmtPerc(c.cloud_cover)}
+      ];
+      el('currentStats').innerHTML = stats.map(s=>`<div class="bg-white/10 rad p-3"><div class="text-sm text-white/70">${s.label}</div><div class="text-xl font-semibold">${s.value}</div></div>`).join('');
+    }
+
+    function renderDaily(data){
+      const days = data.daily;
+      const grid = el('dailyGrid');
+      grid.innerHTML = "";
+      for(let i=0; i<7; i++){
+        grid.innerHTML += `
+          <div class="bg-white/10 rad p-3 text-center">
+            <div class="text-sm text-white/70">${new Date(days.time[i]).toLocaleDateString(undefined,{weekday:'short'})}</div>
+            <div class="text-xl font-bold">${fmtTemp(days.temperature_2m_max[i])}</div>
+            <div class="text-white/70 text-sm">/${fmtTemp(days.temperature_2m_min[i])}</div>
+          </div>`;
+      }
+    }
+
+    async function init(lat, lon, place){
+      loaderOverlay.classList.remove('hidden');
+      try {
+        const data = await fetchWeather(lat, lon);
+        el('locName').textContent = place || 'Your Location';
+        el('locCoords').textContent = `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+        renderCurrent(data);
+        renderDaily(data);
+      } catch(e){
+        alert('Error fetching data');
+      } finally {
+        loaderOverlay.classList.add('hidden');
+      }
+    }
+
+    el('searchBtn').addEventListener('click', async()=>{
+      const q = el('searchInput').value.trim();
+      if(!q) return;
+      loaderOverlay.classList.remove('hidden');
+      try {
+        const g = await geocode(q);
+        init(g.lat,g.lon,g.name.split(',')[0]);
+      } catch(e){
+        alert('Location not found');
+        loaderOverlay.classList.add('hidden');
+      }
+    });
+
+    el('geoBtn').addEventListener('click', ()=>{
+      loaderOverlay.classList.remove('hidden');
+      navigator.geolocation.getCurrentPosition(p=>{
+        init(p.coords.latitude,p.coords.longitude,'Your Location');
+      }, ()=>{
+        alert('Unable to get location');
+        loaderOverlay.classList.add('hidden');
+      });
+    });
+
+    init(28.61,77.23,'New Delhi');
+  </script>
+
+
+</body></html>
